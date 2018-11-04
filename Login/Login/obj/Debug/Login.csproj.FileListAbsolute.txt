@@ -1,0 +1,12 @@
+E:\Competente_2018\Login\Login\obj\Debug\Login.csprojAssemblyReference.cache
+E:\Competente_2018\Login\Login\obj\Debug\Login.Properties.Resources.resources
+E:\Competente_2018\Login\Login\obj\Debug\Login.csproj.GenerateResource.cache
+E:\Competente_2018\Login\Login\obj\Debug\Login.csproj.CoreCompileInputs.cache
+E:\Competente_2018\Login\Login\bin\Debug\Login.exe.config
+E:\Competente_2018\Login\Login\bin\Debug\Login.exe
+E:\Competente_2018\Login\Login\bin\Debug\Login.pdb
+E:\Competente_2018\Login\Login\bin\Debug\MySql.Data.DLL
+E:\Competente_2018\Login\Login\obj\Debug\Login.csproj.CopyComplete
+E:\Competente_2018\Login\Login\obj\Debug\Login.exe
+E:\Competente_2018\Login\Login\obj\Debug\Login.pdb
+E:\Competente_2018\Login\Login\obj\Debug\Login.Form1.resources
