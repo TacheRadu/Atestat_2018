@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace Login{
     public partial class Form1 : Form
     {
         private Button submit = new Button();
+        private Button support = new Button();
         private TextBox user = new TextBox();
         private TextBox pass = new TextBox();
         private void buttonPress(object sender, EventArgs e)
@@ -34,7 +36,7 @@ namespace Login{
             }
             else
             {
-                ConnectDB orcus = new ConnectDB("localhost", "orcus", "username", "password");
+                ConnectDB orcus = new ConnectDB("localhost", "test", "root", "rootpassword");
                 MySqlCommand cmd = new MySqlCommand("SELECT password FROM users WHERE username=@val", orcus.getConnection());
                 cmd.Parameters.AddWithValue("@val", user.Text);
                 cmd.Prepare();
@@ -58,6 +60,10 @@ namespace Login{
                 orcus.closeConnection();
             }
         }
+        private void goToSupport(object sender, EventArgs e)
+        {
+            Process.Start("http://orcus.cf");
+        }
         public Form1()
         {
             InitializeComponent();
@@ -74,6 +80,13 @@ namespace Login{
             submit.Top = 50;
             submit.Left = this.Width - 100;
             submit.Text = "Login";
+            support.Size = new Size(100, 100);
+            support.Left = this.Width / 2 - 50;
+            support.Top = 200;
+            support.Text = "Support";
+            support.Click += new EventHandler(goToSupport);
+            //submit.ForeColor = Color.Blue;
+            submit.BackColor = Color.RoyalBlue;
             submit.Show();
             user.Click += new EventHandler(buttonPress);
             pass.Click += new EventHandler(buttonPress);
@@ -81,6 +94,8 @@ namespace Login{
             this.Controls.Add(user);
             this.Controls.Add(pass);
             this.Controls.Add(submit);
+            this.Controls.Add(support);
+            this.BackColor = Color.FromArgb(255, 48, 48, 48);
         }
     }
     public class ConnectDB
@@ -96,7 +111,7 @@ namespace Login{
             database = db;
             user = usr;
             password = pwd;
-            string connectionString = "SERVER=" + server + "; DATABASE=" + database + "; USER=" + user + "; PASSWORD=" + password + ";";
+            string connectionString = "SERVER=" + server + "; DATABASE=" + database + "; USER=" + user + "; PASSWORD=" + password + "; SslMode=none;";
             conn = new MySqlConnection(connectionString);
             conn.Open();
         }
