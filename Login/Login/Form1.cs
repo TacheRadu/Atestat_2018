@@ -26,38 +26,41 @@ namespace Login{
         }
         private void submission(object sender, EventArgs e)
         {
-            if(user.Text == "")
+            if (user.Text == "")
             {
                 MessageBox.Show("Insert the username, please.");
             }
-            else if(pass.Text == "")
+            else if (pass.Text == "")
             {
                 MessageBox.Show("Insert the password, please.");
             }
             else
             {
                 ConnectDB orcus = new ConnectDB("localhost", "test", "root", "rootpassword");
-                MySqlCommand cmd = new MySqlCommand("SELECT password FROM users WHERE username=@val", orcus.getConnection());
-                cmd.Parameters.AddWithValue("@val", user.Text);
-                cmd.Prepare();
-                MySqlDataReader res = cmd.ExecuteReader();
-                if (res.Read())
+                if (orcus.getConnection().State == ConnectionState.Open)
                 {
-                    string password = (string)res["password"];
-                    if(password == pass.Text)
+                    MySqlCommand cmd = new MySqlCommand("SELECT password FROM users WHERE username=@val", orcus.getConnection());
+                    cmd.Parameters.AddWithValue("@val", user.Text);
+                    cmd.Prepare();
+                    MySqlDataReader res = cmd.ExecuteReader();
+                    if (res.Read())
                     {
-                        MessageBox.Show("Login Successful!");
+                        string password = (string)res["password"];
+                        if (password == pass.Text)
+                        {
+                            MessageBox.Show("Login Successful!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Wrong password.");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Wrong password.");
+                        MessageBox.Show("No there is no user named " + user.Text + ".");
                     }
+                    orcus.closeConnection();
                 }
-                else
-                {
-                    MessageBox.Show("No there is no user named " + user.Text + ".");
-                }
-                orcus.closeConnection();
             }
         }
         private void goToSupport(object sender, EventArgs e)
@@ -107,13 +110,23 @@ namespace Login{
         private string password;
         public ConnectDB(string serv, string db, string usr, string pwd)
         {
-            server = serv;
-            database = db;
-            user = usr;
-            password = pwd;
-            string connectionString = "SERVER=" + server + "; DATABASE=" + database + "; USER=" + user + "; PASSWORD=" + password + "; SslMode=none;";
-            conn = new MySqlConnection(connectionString);
-            conn.Open();
+            try
+            {
+                server = serv;
+                database = db;
+                user = usr;
+                password = pwd;
+                string connectionString = "SERVER=" + server + "; DATABASE=" + database + "; USER=" + user + "; PASSWORD=" + password + "; SslMode=none;";
+                conn = new MySqlConnection(connectionString);
+                conn.Open();
+            }
+            catch (MySqlException ex)
+            {
+                if(ex.Number == 1042)
+                {
+                    MessageBox.Show("Server is down...");
+                }
+            }
         }
         public MySqlConnection getConnection()
         {
