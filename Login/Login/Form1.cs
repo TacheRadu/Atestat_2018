@@ -9,6 +9,13 @@ namespace Login
 {
     public partial class Form1 : Form
     {
+
+        public Form1()
+        {
+            InitializeComponent();
+
+        }
+
         private void submission(object sender, EventArgs e)
         {
             if (user.Text == "")
@@ -48,29 +55,27 @@ namespace Login
                 }
             }
         }
-        private void goToSupport(object sender, EventArgs e)
+
+        private void Support_Click(object sender, EventArgs e)
         {
             Process.Start("http://orcus.cf");
         }
-        public Form1()
+
+        private void user_Click(object sender, EventArgs e)
         {
-            InitializeComponent();
-            
+            if(user.Text == "Username")
+            {
+                user.Clear();
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void pass_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
+            if(pass.Text == "Password")
+            {
+                pass.Clear();
+                pass.PasswordChar = '*';
+            }
         }
     }
     public class ConnectDB
