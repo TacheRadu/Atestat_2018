@@ -37,6 +37,7 @@
             // 
             // submit
             // 
+            this.submit.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.submit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(20)))), ((int)(((byte)(89)))));
             this.submit.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.submit.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -63,6 +64,7 @@
             // 
             // user
             // 
+            this.user.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.user.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(20)))), ((int)(((byte)(89)))));
             this.user.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.user.ForeColor = System.Drawing.Color.White;
@@ -76,6 +78,7 @@
             // 
             // pass
             // 
+            this.pass.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pass.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(20)))), ((int)(((byte)(89)))));
             this.pass.Font = new System.Drawing.Font("MS Reference Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pass.ForeColor = System.Drawing.Color.White;
@@ -90,12 +93,12 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(20)))), ((int)(((byte)(89)))));
             this.panel1.BackgroundImage = global::Login.Properties.Resources.download__2_;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Location = new System.Drawing.Point(this.Width / 2 - panel1.Size.Width / 2, 12);
+            this.panel1.Location = new System.Drawing.Point(330, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(255, 86);
             this.panel1.TabIndex = 7;
@@ -129,6 +132,7 @@
         private System.Windows.Forms.TextBox user;
         private System.Windows.Forms.TextBox pass;
         private System.Windows.Forms.Panel panel1;
+
     }
 }
 
