@@ -77,6 +77,16 @@ namespace Login
                 pass.PasswordChar = '*';
             }
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pass_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
     public class ConnectDB
     {
