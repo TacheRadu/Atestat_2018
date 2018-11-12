@@ -31,8 +31,9 @@ namespace Login
                 ConnectDB orcus = new ConnectDB("localhost", "test", "root", "rootpassword");
                 if (orcus.getConnection().State == ConnectionState.Open)
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT password FROM users WHERE username=@val", orcus.getConnection());
+                    MySqlCommand cmd = new MySqlCommand("SELECT * FROM users WHERE username=@val AND password = @val2", orcus.getConnection());
                     cmd.Parameters.AddWithValue("@val", user.Text);
+                    cmd.Parameters.AddWithValue("@val2", pass.Text);
                     cmd.Prepare();
                     MySqlDataReader res = cmd.ExecuteReader();
                     if (res.Read())
@@ -41,15 +42,18 @@ namespace Login
                         if (password == pass.Text)
                         {
                             MessageBox.Show("Login Successful!");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Wrong password.");
+                            this.Hide();
+                            if (res.GetBoolean(4))
+                            {
+                                Form2 admin = new Form2();
+                                admin.Show();
+
+                            }
                         }
                     }
                     else
                     {
-                        MessageBox.Show("No there is no user named " + user.Text + ".");
+                        MessageBox.Show("Wrong password or username.");
                     }
                     orcus.closeConnection();
                 }
