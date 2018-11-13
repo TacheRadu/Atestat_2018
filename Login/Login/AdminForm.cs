@@ -17,18 +17,16 @@ namespace Login
         public AdminForm(Form1 form)
         {
             InitializeComponent();
-            //loadGridView();
+            loadGridView();
             this.form = form;
         }
 
         private void loadGridView()
         {
             ConnectDB orcus = new ConnectDB("localhost", "test", "root", "rootpassword");
-            MySqlConnection conn = orcus.getConnection();
-            MySqlCommand cmd = new MySqlCommand("select * from users;", conn);
-            MySqlDataReader dr = cmd.ExecuteReader();
-            dataGridView1.DataSource = dr;
-            conn.Close();
+            DataTable source = new DataTable();
+            orcus.fillDataTable("SHOW TABLES", source);
+            dataGridView1.DataSource = source;
         }
         private void onClose(object sender, EventArgs e)
         {

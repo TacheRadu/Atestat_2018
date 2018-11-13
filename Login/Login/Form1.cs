@@ -123,6 +123,7 @@ namespace Login
         private string database;
         private string user;
         private string password;
+        private string connectionString;
         public ConnectDB(string serv, string db, string usr, string pwd)
         {
             try
@@ -131,7 +132,7 @@ namespace Login
                 database = db;
                 user = usr;
                 password = pwd;
-                string connectionString = "SERVER=" + server + "; DATABASE=" + database + "; USER=" + user + "; PASSWORD=" + password + "; SslMode=none;";
+                connectionString = "SERVER=" + server + "; DATABASE=" + database + "; USER=" + user + "; PASSWORD=" + password + "; SslMode=none;";
                 conn = new MySqlConnection(connectionString);
                 conn.Open();
             }
@@ -142,6 +143,12 @@ namespace Login
                     MessageBox.Show("Server is down...");
                 }
             }
+        }
+        public void fillDataTable(string query, DataTable table)
+        {
+            MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connectionString);
+            MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(dataAdapter);
+            dataAdapter.Fill(table);
         }
         public MySqlConnection getConnection()
         {
