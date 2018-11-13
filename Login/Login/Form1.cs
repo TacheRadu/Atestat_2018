@@ -45,9 +45,14 @@ namespace Login
                             this.Hide();
                             if (res.GetBoolean(4))
                             {
-                                Form2 admin = new Form2();
+                                AdminForm admin = new AdminForm();
                                 admin.Show();
 
+                            }
+                            else
+                            {
+                                UserForm user = new UserForm();
+                                user.Show();
                             }
                         }
                     }
