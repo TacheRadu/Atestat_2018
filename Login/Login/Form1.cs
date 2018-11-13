@@ -28,8 +28,7 @@ namespace Login
             }
             else
             {
-                ConnectDB orcus = new ConnectDB("localhost", "test", 
-"root", "rootpassword");
+                ConnectDB orcus = new ConnectDB("localhost", "test", "root", "rootpassword");
                 if (orcus.getConnection().State == ConnectionState.Open)
                 {
                     MySqlCommand cmd = new MySqlCommand("SELECT * FROM users WHERE username=@val AND password = @val2", orcus.getConnection());
@@ -44,6 +43,8 @@ namespace Login
                         {
                             MessageBox.Show("Login Successful!");
                             Hide();
+                            pass.Text = "Password";
+                            user.Text = "Username";
                             if (res.GetBoolean(3))
                             {
                                 AdminForm admin = new AdminForm(this);
@@ -110,6 +111,7 @@ namespace Login
         {
             if(e.KeyCode == Keys.Enter)
             {
+                submit.Focus();
                 submission(submit, new EventArgs());
             }
         }
