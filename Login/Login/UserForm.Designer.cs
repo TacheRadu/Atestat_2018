@@ -48,6 +48,7 @@
             this.Controls.Add(this.label1);
             this.Name = "UserForm";
             this.Text = "UserForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.onClose);
             this.ResumeLayout(false);
             this.PerformLayout();
 

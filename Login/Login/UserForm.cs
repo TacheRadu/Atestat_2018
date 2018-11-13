@@ -12,9 +12,15 @@ namespace Login
 {
     public partial class UserForm : Form
     {
-        public UserForm()
+        private Form1 form;
+        public UserForm(Form1 form)
         {
             InitializeComponent();
+            this.form = form;
+        }
+        private void onClose(object sender, FormClosingEventArgs e)
+        {
+            form.Show();
         }
     }
 }

@@ -13,24 +13,27 @@ namespace Login
 {
     public partial class AdminForm : Form
     {
-        public AdminForm()
+        private Form1 form;
+        public AdminForm(Form1 form)
         {
             InitializeComponent();
             loadGridView();
+            this.form = form;
         }
 
         private void loadGridView()
         {
-            ConnectDB orcus = new ConnectDB("localhost", "test", "root", "rootpassword");
+            ConnectDB orcus = new ConnectDB("localhost", "test", 
+"root", "rootpassword");
             MySqlConnection conn = orcus.getConnection();
-            MySqlCommand cmd = new MySqlCommand("SHOW TABLES", conn);
+            MySqlCommand cmd = new MySqlCommand("SHOW TABLES;", conn);
             MySqlDataReader dr = cmd.ExecuteReader();
             dataGridView1.DataSource = dr;
             conn.Close();
         }
-        private void label1_Click(object sender, EventArgs e)
+        private void onClose(object sender, EventArgs e)
         {
-
+            form.Show();
         }
     }
 }

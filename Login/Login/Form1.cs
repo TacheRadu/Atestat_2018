@@ -28,7 +28,8 @@ namespace Login
             }
             else
             {
-                ConnectDB orcus = new ConnectDB("localhost", "test", "root", "rootpassword");
+                ConnectDB orcus = new ConnectDB("localhost", "test", 
+"root", "rootpassword");
                 if (orcus.getConnection().State == ConnectionState.Open)
                 {
                     MySqlCommand cmd = new MySqlCommand("SELECT * FROM users WHERE username=@val AND password = @val2", orcus.getConnection());
@@ -42,16 +43,16 @@ namespace Login
                         if (password == pass.Text)
                         {
                             MessageBox.Show("Login Successful!");
-                            this.Hide();
-                            if (res.GetBoolean(4))
+                            Hide();
+                            if (res.GetBoolean(3))
                             {
-                                AdminForm admin = new AdminForm();
+                                AdminForm admin = new AdminForm(this);
                                 admin.Show();
 
                             }
                             else
                             {
-                                UserForm user = new UserForm();
+                                UserForm user = new UserForm(this);
                                 user.Show();
                             }
                         }
@@ -70,7 +71,7 @@ namespace Login
             Process.Start("http://orcus.cf");
         }
 
-        private void user_Click(object sender, EventArgs e)
+        private void userFocus(object sender, EventArgs e)
         {
             if(user.Text == "Username")
             {
@@ -78,7 +79,7 @@ namespace Login
             }
         }
 
-        private void pass_Click(object sender, EventArgs e)
+        private void passFocus(object sender, EventArgs e)
         {
             if(pass.Text == "Password")
             {
@@ -95,6 +96,22 @@ namespace Login
         private void pass_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void userEnter(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                pass.Focus();
+            }
+        }
+
+        private void passEnter(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                submission(submit, new EventArgs());
+            }
         }
     }
     public class ConnectDB

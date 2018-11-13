@@ -74,7 +74,8 @@
             this.user.TabIndex = 5;
             this.user.Text = "Username";
             this.user.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.user.Click += new System.EventHandler(this.user_Click);
+            this.user.Enter += new System.EventHandler(this.userFocus);
+            this.user.KeyDown += new System.Windows.Forms.KeyEventHandler(this.userEnter);
             // 
             // pass
             // 
@@ -88,8 +89,9 @@
             this.pass.TabIndex = 6;
             this.pass.Text = "Password";
             this.pass.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.pass.Click += new System.EventHandler(this.pass_Click);
             this.pass.TextChanged += new System.EventHandler(this.pass_TextChanged);
+            this.pass.Enter += new System.EventHandler(this.passFocus);
+            this.pass.KeyDown += new System.Windows.Forms.KeyEventHandler(this.passEnter);
             // 
             // panel1
             // 
@@ -115,7 +117,6 @@
             this.Controls.Add(this.Support);
             this.Controls.Add(this.submit);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Location = new System.Drawing.Point(458, 0);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
