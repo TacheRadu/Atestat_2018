@@ -41,11 +41,10 @@ namespace Login
                         string password = (string)res["password"];
                         if (password == pass.Text)
                         {
-                            MessageBox.Show("Login Successful!");
                             Hide();
                             pass.Text = "Password";
                             user.Text = "Username";
-                            if (res.GetBoolean(3))
+                            if (res.GetBoolean(4))
                             {
                                 AdminForm admin = new AdminForm(this);
                                 admin.Show();

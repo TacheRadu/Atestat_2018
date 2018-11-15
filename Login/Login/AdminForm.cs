@@ -25,7 +25,7 @@ namespace Login
         {
             ConnectDB orcus = new ConnectDB("localhost", "test", "root", "rootpassword");
             DataTable source = new DataTable();
-            orcus.fillDataTable("SHOW TABLES", source);
+            orcus.fillDataTable("SELECT * FROM users", source);
             dataGridView1.DataSource = source;
         }
         private void onClose(object sender, EventArgs e)
