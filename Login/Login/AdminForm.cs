@@ -32,5 +32,13 @@ namespace Login
         {
             form.Show();
         }
+        private void onDeletion(object sender, DataGridViewRowEventArgs e)
+        {
+                MessageBox.Show("You deleted one row.");
+        }
+        private void onAddition(object sender, DataGridViewRowEventArgs e)
+        {
+            MessageBox.Show("You added one row.");
+        }
     }
 }
