@@ -118,6 +118,8 @@ namespace Login
     public class ConnectDB
     {
         private MySqlConnection conn;
+        private MySqlCommandBuilder commandBuilder;
+        private MySqlDataAdapter dataAdapter;
         private string server;
         private string database;
         private string user;
@@ -145,8 +147,8 @@ namespace Login
         }
         public void fillDataTable(string query, DataTable table)
         {
-            MySqlDataAdapter dataAdapter = new MySqlDataAdapter(query, connectionString);
-            MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(dataAdapter);
+            dataAdapter = new MySqlDataAdapter(query, connectionString);
+            commandBuilder = new MySqlCommandBuilder(dataAdapter);
             dataAdapter.Fill(table);
         }
         public MySqlConnection getConnection()
