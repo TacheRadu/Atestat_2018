@@ -145,11 +145,23 @@ namespace Login
                 }
             }
         }
+        public void remoteUpdate(DataSet set)
+        {
+            dataAdapter.Update(set);
+        }
         public void fillDataTable(string query, DataTable table)
         {
             dataAdapter = new MySqlDataAdapter(query, connectionString);
             commandBuilder = new MySqlCommandBuilder(dataAdapter);
+            dataAdapter.UpdateCommand = commandBuilder.GetUpdateCommand();
             dataAdapter.Fill(table);
+        }
+        public DataTable getDataTable(string query)
+        {
+            dataAdapter = new MySqlDataAdapter(query, connectionString);
+            DataTable table = new DataTable();
+            dataAdapter.Fill(table);
+            return table;
         }
         public MySqlConnection getConnection()
         {
