@@ -59,6 +59,7 @@ namespace Login
             this.updateBtn.TabIndex = 3;
             this.updateBtn.Text = "Update";
             this.updateBtn.UseVisualStyleBackColor = true;
+            this.updateBtn.Click += new System.EventHandler(this.update);
             // 
             // AdminForm
             // 

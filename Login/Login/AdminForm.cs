@@ -14,8 +14,12 @@ namespace Login
     public partial class AdminForm : Form
     {
         private Form1 form;
+        private DataTable source;
+        private DataSet ds;
+        private string query;
         public AdminForm(Form1 form)
         {
+            query = "SELECT * FROM users";
             InitializeComponent();
             loadGridView();
             this.form = form;
@@ -45,18 +49,37 @@ namespace Login
         private void loadGridView()
         {
             ConnectDB orcus = new ConnectDB("localhost", "test", "root", "rootpassword");
-            DataTable source = new DataTable();
-            orcus.fillDataTable("SELECT * FROM users", source);
+            source = new DataTable();
+            source.TableName = "users";
+            orcus.fillDataTable(query, source);
             dataGridView1.DataSource = source;
         }
-        private void onClose(object sender, EventArgs e)
+        private void onClose(object sender, FormClosingEventArgs e)
         {
             ConnectDB orcus = new ConnectDB("localhost", "test", "root", "rootpassword");
-            if (!AreTablesTheSame((DataTable)dataGridView1.DataSource, orcus.getDataTable("SELECT * FROM users")))
+            if (!AreTablesTheSame(source, orcus.getDataTable("SELECT * FROM users")))
             {
-                MessageBox.Show("Changes were made");
+                DialogResult dialogResult = MessageBox.Show("Are you sure you want to update the table?", "Changes were made!", MessageBoxButtons.YesNo);
+                if(dialogResult == DialogResult.Yes)
+                {
+                    ds = new DataSet();
+                    ds.Tables.Add(source);
+                    orcus.remoteUpdate(query, ds);
+                }
+                else if(dialogResult == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
             }
             form.Show();
+        }
+
+        private void update(object sender, EventArgs e)
+        {
+            ConnectDB orcus = new ConnectDB("localhost", "test", "root", "rootpassword");
+            ds = new DataSet();
+            ds.Tables.Add(source);
+            orcus.remoteUpdate(query, ds);
         }
     }
 }
