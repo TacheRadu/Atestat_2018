@@ -3,7 +3,6 @@ using System.Data;
 using System.Net.Http;
 using System.Diagnostics;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace Login
 {

@@ -89,7 +89,6 @@
             this.pass.TabIndex = 6;
             this.pass.Text = "Password";
             this.pass.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.pass.TextChanged += new System.EventHandler(this.pass_TextChanged);
             this.pass.Enter += new System.EventHandler(this.passFocus);
             this.pass.KeyDown += new System.Windows.Forms.KeyEventHandler(this.passEnter);
             // 
@@ -121,7 +120,6 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

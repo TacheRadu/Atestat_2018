@@ -3,7 +3,6 @@ using System.Data;
 using System.Net.Http;
 using System.Diagnostics;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace Login
 {
@@ -88,16 +87,6 @@ namespace Login
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pass_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void userEnter(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
@@ -113,66 +102,6 @@ namespace Login
                 submit.Focus();
                 submission(submit, new EventArgs());
             }
-        }
-    }
-    public class ConnectDB
-    {
-        private MySqlConnection conn;
-        private MySqlCommandBuilder commandBuilder;
-        private MySqlDataAdapter dataAdapter;
-        private string server;
-        private string database;
-        private string user;
-        private string password;
-        private string connectionString;
-        public ConnectDB(string serv, string db, string usr, string pwd)
-        {
-            try
-            {
-                server = serv;
-                database = db;
-                user = usr;
-                password = pwd;
-                connectionString = "SERVER=" + server + "; DATABASE=" + database + "; USER=" + user + "; PASSWORD=" + password + "; SslMode=none;";
-                conn = new MySqlConnection(connectionString);
-                conn.Open();
-            }
-            catch (MySqlException ex)
-            {
-                if(ex.Number == 1042)
-                {
-                    MessageBox.Show("Server is down...");
-                }
-            }
-        }
-        public void remoteUpdate(string query, DataSet set)
-        {
-            dataAdapter = new MySqlDataAdapter(query, conn);
-            commandBuilder = new MySqlCommandBuilder(dataAdapter);
-            dataAdapter.DeleteCommand = commandBuilder.GetDeleteCommand();
-            dataAdapter.UpdateCommand = commandBuilder.GetUpdateCommand();
-            dataAdapter.InsertCommand = commandBuilder.GetInsertCommand();
-            dataAdapter.Update(set, "users");
-        }
-        public void fillDataTable(string query, DataTable table)
-        {
-            dataAdapter = new MySqlDataAdapter(query, connectionString);
-            dataAdapter.Fill(table);
-        }
-        public DataTable getDataTable(string query)
-        {
-            dataAdapter = new MySqlDataAdapter(query, connectionString);
-            DataTable table = new DataTable();
-            dataAdapter.Fill(table);
-            return table;
-        }
-        public MySqlConnection getConnection()
-        {
-            return conn;
-        }
-        public void closeConnection()
-        {
-            conn.Close();
         }
     }
 }
