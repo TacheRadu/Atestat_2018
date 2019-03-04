@@ -16,7 +16,7 @@ namespace Login
         }
         private void onClose(object sender, FormClosingEventArgs e)
         {
-            form.Show();
+            form.onReturn();
         }
     }
 }

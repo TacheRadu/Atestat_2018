@@ -15,7 +15,9 @@ namespace Login
 
         }
 
-        private void submission(object sender, EventArgs e)
+        private static readonly HttpClient client = new HttpClient();
+
+        private async void submission(object sender, EventArgs e)
         {
             if (user.Text == "")
             {
@@ -27,41 +29,33 @@ namespace Login
             }
             else
             {
-                ConnectDB orcus = new ConnectDB("localhost", "test", "root", "rootpassword");
-                if (orcus.getConnection().State == ConnectionState.Open)
+                try
                 {
-                    MySqlCommand cmd = new MySqlCommand("SELECT * FROM users WHERE username=@val AND password = @val2", orcus.getConnection());
-                    cmd.Parameters.AddWithValue("@val", user.Text);
-                    cmd.Parameters.AddWithValue("@val2", pass.Text);
-                    cmd.Prepare();
-                    MySqlDataReader res = cmd.ExecuteReader();
-                    if (res.Read())
+                    string res = await client.GetStringAsync("http://localhost:3000/login?name=" + user.Text + "&password=" + pass.Text);
+                    if(Int32.Parse(res) >= 0)
                     {
-                        string password = (string)res["password"];
-                        if (password == pass.Text)
+                        Hide();
+                        if (res == "1")
                         {
-                            Hide();
-                            pass.Text = "Password";
-                            user.Text = "Username";
-                            if (res.GetBoolean(4))
-                            {
-                                AdminForm admin = new AdminForm(this);
-                                admin.Show();
-
-                            }
-                            else
-                            {
-                                UserForm user = new UserForm(this);
-                                user.Show();
-                            }
+                            AdminForm admin = new AdminForm(this);
+                            admin.Show();
+                        }
+                        else
+                        {
+                            UserForm user = new UserForm(this);
+                            user.Show();
                         }
                     }
                     else
                     {
                         MessageBox.Show("Wrong password or username.");
                     }
-                    orcus.closeConnection();
                 }
+                catch
+                {
+                    MessageBox.Show("Server is down.");
+                }
+                
             }
         }
 
@@ -102,6 +96,12 @@ namespace Login
                 submit.Focus();
                 submission(submit, new EventArgs());
             }
+        }
+        public void onReturn()
+        {
+            user.Text = "Username";
+            pass.Text = "Password";
+            Show();
         }
     }
 }
