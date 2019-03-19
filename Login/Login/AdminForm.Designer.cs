@@ -34,7 +34,7 @@ namespace Login
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.updateBtn = new System.Windows.Forms.Button();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.listView2 = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -61,20 +61,20 @@ namespace Login
             this.updateBtn.Text = "Update";
             this.updateBtn.UseVisualStyleBackColor = true;
             // 
-            // treeView1
+            // listView2
             // 
-            this.treeView1.BackColor = System.Drawing.Color.Azure;
-            this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(100, 410);
-            this.treeView1.TabIndex = 4;
+            this.listView2.Location = new System.Drawing.Point(0, 0);
+            this.listView2.Name = "listView2";
+            this.listView2.Size = new System.Drawing.Size(100, 410);
+            this.listView2.TabIndex = 6;
+            this.listView2.UseCompatibleStateImageBehavior = false;
             // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 461);
-            this.Controls.Add(this.treeView1);
+            this.Controls.Add(this.listView2);
             this.Controls.Add(this.updateBtn);
             this.Controls.Add(this.dataGridView1);
             this.Name = "AdminForm";
@@ -90,6 +90,6 @@ namespace Login
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource usersBindingSource;
         private System.Windows.Forms.Button updateBtn;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.ListView listView2;
     }
 }
