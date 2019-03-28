@@ -9,13 +9,15 @@ namespace Login
     public partial class LoginForm : Form
     {
 
+        private static readonly HttpClient client = new HttpClient();
+
+
         public LoginForm()
         {
             InitializeComponent();
 
         }
-
-        private static readonly HttpClient client = new HttpClient();
+        
 
         private async void submission(object sender, EventArgs e)
         {
@@ -59,10 +61,12 @@ namespace Login
             }
         }
 
+
         private void Support_Click(object sender, EventArgs e)
         {
             Process.Start("http://orcus.cf");
         }
+
 
         private void userFocus(object sender, EventArgs e)
         {
@@ -71,6 +75,7 @@ namespace Login
                 user.Clear();
             }
         }
+
 
         private void passFocus(object sender, EventArgs e)
         {
@@ -81,6 +86,7 @@ namespace Login
             }
         }
 
+
         private void userEnter(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
@@ -88,6 +94,7 @@ namespace Login
                 pass.Focus();
             }
         }
+
 
         private void passEnter(object sender, KeyEventArgs e)
         {
@@ -97,6 +104,8 @@ namespace Login
                 submission(submit, new EventArgs());
             }
         }
+
+
         public void onReturn()
         {
             user.Text = "Username";
