@@ -29,5 +29,15 @@ app.get('/login', function (req, res) {
         }
     });
 })
+app.get('/tables', function(req, res) {
+    connection.query("SHOW TABLES;", function(err, dat){
+        if(err) throw err;
+        var tables = [];
+        for(var i = 0; i < dat.length; i++){
+            tables.push(dat[i]["Tables_in_" + connection.config.database]);
+        }
+        res.send(tables); 
+    })
+})
  
 app.listen(3000)
