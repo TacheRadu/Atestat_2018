@@ -47,7 +47,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.label1);
             this.Name = "UserForm";
-            this.Text = "UserForm";
+            this.Text = "User";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.onClose);
             this.ResumeLayout(false);
             this.PerformLayout();

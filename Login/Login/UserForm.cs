@@ -8,8 +8,8 @@ namespace Login
 {
     public partial class UserForm : Form
     {
-        private Form1 form;
-        public UserForm(Form1 form)
+        private LoginForm form;
+        public UserForm(LoginForm form)
         {
             InitializeComponent();
             this.form = form;
