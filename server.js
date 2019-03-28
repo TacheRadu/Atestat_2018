@@ -33,10 +33,18 @@ app.get('/tables', function(req, res) {
     connection.query("SHOW TABLES;", function(err, dat){
         if(err) throw err;
         var tables = [];
-        for(var i = 0; i < dat.length; i++){
+        for(var i in dat){
             tables.push(dat[i]["Tables_in_" + connection.config.database]);
         }
         res.send(tables); 
+    })
+})
+
+app.get('/gettable', function(req, res){
+    connection.query("SELECT * FROM " + req.query.table, function(err, results, fields){
+        if(err) throw err;
+        console.log(results);
+        res.send(results);
     })
 })
  
