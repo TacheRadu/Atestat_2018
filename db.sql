@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 04, 2019 at 02:04 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Generation Time: Apr 15, 2019 at 11:36 AM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `orcus`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `clienti`
+--
+
+CREATE TABLE `clienti` (
+  `id` int(11) NOT NULL,
+  `nume` varchar(255) NOT NULL,
+  `prenume` varchar(255) NOT NULL,
+  `pozitie` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `clienti`
+--
+
+INSERT INTO `clienti` (`id`, `nume`, `prenume`, `pozitie`) VALUES
+(1, 'Samadau', 'Lica', 'Sef pocar'),
+(2, 'Moromete', 'Ilie', 'Secretar la fieraria lui Iocan');
 
 -- --------------------------------------------------------
 
