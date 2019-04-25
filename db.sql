@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2019 at 11:36 AM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: Apr 25, 2019 at 11:12 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,23 +25,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `clienti`
+-- Table structure for table `clients`
 --
 
-CREATE TABLE `clienti` (
+CREATE TABLE `clients` (
   `id` int(11) NOT NULL,
-  `nume` varchar(255) NOT NULL,
-  `prenume` varchar(255) NOT NULL,
-  `pozitie` varchar(255) NOT NULL
+  `nume` varchar(50) NOT NULL,
+  `prenume` varchar(50) NOT NULL,
+  `email` varchar(60) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `clienti`
+-- Dumping data for table `clients`
 --
 
-INSERT INTO `clienti` (`id`, `nume`, `prenume`, `pozitie`) VALUES
-(1, 'Samadau', 'Lica', 'Sef pocar'),
-(2, 'Moromete', 'Ilie', 'Secretar la fieraria lui Iocan');
+INSERT INTO `clients` (`id`, `nume`, `prenume`, `email`) VALUES
+(1, 'Tache', 'Radu', 'radutache76@gmail.com'),
+(2, 'Spiridon', 'Stefan', 'stevecorduroi@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -69,6 +69,12 @@ INSERT INTO `users` (`id`, `name`, `password`, `is_admin`) VALUES
 --
 
 --
+-- Indexes for table `clients`
+--
+ALTER TABLE `clients`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -79,6 +85,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `clients`
+--
+ALTER TABLE `clients`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
