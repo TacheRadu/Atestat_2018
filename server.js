@@ -12,11 +12,13 @@ connection.connect(function(err){
     console.log("Connected!");
 });
 var app = express();
- 
+
+app.use(express.json());
+
 app.get('/login', function (req, res) {
     
     //res.send(req.query.name);
-    connection.query("SELECT * FROM users WHERE name = ? AND password = ?;", [req.query.name, req.query.password] , function(err, results, fields){
+    connection.query("SELECT * FROM users WHERE name = ? AND password = ?;", [req.query.name, req.query.password] , function(err, results){
         if(err) throw err;
         if(!results.length){
             res.send("-1");
@@ -28,7 +30,8 @@ app.get('/login', function (req, res) {
             res.send("0");
         }
     });
-})
+});
+
 app.get('/tables', function(req, res) {
     connection.query("SHOW TABLES;", function(err, dat){
         if(err) throw err;
@@ -38,14 +41,68 @@ app.get('/tables', function(req, res) {
         }
         res.send(tables); 
     })
-})
+});
 
 app.get('/gettable', function(req, res){
-    connection.query("SELECT * FROM " + req.query.table, function(err, results, fields){
+    connection.query("SELECT * FROM " + req.query.table, function(err, results){
         if(err) throw err;
-        console.log(results);
         res.send(results);
     })
-})
+});
+
+app.post('/add', function(req, res){
+    var keys = [];
+    for(var k in req.body[0]){
+        keys.push(k);
+    }
+    connection.query("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'orcus' AND TABLE_NAME = " + connection.escape(req.query.table), function(err, results){
+        if(err) throw err;
+        var curID = results[0].AUTO_INCREMENT;
+        var cmd = "INSERT INTO " + req.query.table + "\n     (";
+        for(var i = 1; i < keys.length; i++){
+            cmd += keys[i];
+            if(i < keys.length - 1){
+                cmd += ", ";
+            }
+        }
+        cmd += ")\nVALUES \n     (";
+        for(var i = 0; i < req.body.length; i++){
+            for(var j = 1; j < keys.length; j++){
+                cmd += connection.escape(req.body[i][keys[j]]);
+                if(j < keys.length - 1){
+                    cmd += ", ";
+                }
+            }
+            if(i < req.body.length - 1){
+                cmd += "),\n     (";
+            }
+            else{
+                cmd += ");";
+            }
+        }
+        connection.query(cmd, function(err){
+            if(err){
+                res.send("FAILED");
+                throw err;
+            }
+            res.send(curID + "");
+        });
+    });
+});
  
+app.post('/delete', function(req, res){
+    var cmd = "DELETE FROM " + req.query.table + " WHERE id IN (" + req.body[0].id;
+    for(var i = 1; i < req.body.length; i++){
+        cmd += ", " + req.body[i].id;
+    }
+    cmd += ");";
+    connection.query(cmd, function(err){
+        if(err){
+            res.send("FAILED");
+            //throw err;
+        }
+        res.send("OK");
+    })
+});
+
 app.listen(3000)
