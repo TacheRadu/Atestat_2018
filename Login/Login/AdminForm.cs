@@ -48,23 +48,6 @@ namespace Login
 
         private void UnColor(string table, string action)
         {
-            if (action == "add")
-            {
-                foreach (TabPage tab in tabControl1.TabPages)
-                {
-                    if (tab.Name == table)
-                    {
-                        DataGridView dgv = tab.Controls[0] as DataGridView;
-                        foreach (DataGridViewRow row in dgv.Rows)
-                        {
-                            if(row.DefaultCellStyle.BackColor == Color.LightGreen)
-                            {
-                                row.DefaultCellStyle.BackColor = Color.Empty;
-                            }
-                        }
-                    }
-                }
-            }
             if (action == "delete")
             {
                 foreach (TabPage tab in tabControl1.TabPages)
@@ -77,6 +60,24 @@ namespace Login
                             if (dgv.Rows[i].DefaultCellStyle.BackColor == Color.LightCoral)
                             {
                                 dgv.Rows.Remove(dgv.Rows[i]);
+                                i--;
+                            }
+                        }
+                    }
+                }
+            }
+            else if (action == "change")
+            {
+                foreach (TabPage tab in tabControl1.TabPages)
+                {
+                    if (tab.Name == table)
+                    {
+                        DataGridView dgv = tab.Controls[0] as DataGridView;
+                        for (int i = 0; i < dgv.Rows.Count; i++)
+                        {
+                            if (dgv.Rows[i].DefaultCellStyle.BackColor == Color.Khaki)
+                            {
+                                dgv.Rows[i].DefaultCellStyle.BackColor = Color.Empty;
                                 i--;
                             }
                         }
@@ -129,6 +130,7 @@ namespace Login
                         stream.Write(JsonConvert.SerializeObject(rows));
                         stream.Flush();
                         stream.Close();
+                        Console.WriteLine(JsonConvert.SerializeObject(rows));
                     }
                     HttpWebResponse response = (HttpWebResponse)httpReq.GetResponse();
                     using (StreamReader streamReader = new StreamReader(response.GetResponseStream()))
@@ -213,7 +215,7 @@ namespace Login
             try
             {
                 DataTable dtCloned = source.Clone();
-                dtCloned.Columns["is_admin"].DataType = typeof(Boolean);
+                dtCloned.Columns["is_admin"].DataType = typeof(bool);
                 foreach (DataRow row in source.Rows)
                 {
                     dtCloned.ImportRow(row);

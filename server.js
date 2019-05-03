@@ -89,6 +89,32 @@ app.post('/add', function(req, res){
         });
     });
 });
+
+app.post('/change', function(req, res){
+    var keys = [];
+    for(var k in req.body[0]){
+        keys.push(k);
+    }
+    for(var i = 0; i < req.body.length; i++){
+        var cmd = "UPDATE " + req.query.table + " SET ";
+        for(var j = 1; j < keys.length; j++){
+            cmd += keys[j] + " = " + connection.escape(req.body[i][keys[j]]);
+            if(j < keys.length - 1){
+                cmd += ", ";
+            }
+        }
+        cmd += " WHERE " + keys[0] + " = " + req.body[i][keys[0]];
+        //console.log(cmd);
+        connection.query(cmd, function(err){
+            if(err){
+                res.send("FAILED");
+                throw err;
+            }
+            res.send("OK");
+        });
+    }
+
+});
  
 app.post('/delete', function(req, res){
     var cmd = "DELETE FROM " + req.query.table + " WHERE id IN (" + req.body[0].id;
