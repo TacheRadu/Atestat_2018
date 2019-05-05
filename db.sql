@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2019 at 11:12 AM
+-- Generation Time: May 05, 2019 at 01:27 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -43,27 +43,6 @@ INSERT INTO `clients` (`id`, `nume`, `prenume`, `email`) VALUES
 (1, 'Tache', 'Radu', 'radutache76@gmail.com'),
 (2, 'Spiridon', 'Stefan', 'stevecorduroi@gmail.com');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `is_admin` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `name`, `password`, `is_admin`) VALUES
-(1, 'andrei', 'andrei', 0),
-(2, 'root', 'rootpassword', 1);
-
 --
 -- Indexes for dumped tables
 --
@@ -75,14 +54,6 @@ ALTER TABLE `clients`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`),
-  ADD UNIQUE KEY `id` (`id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -91,12 +62,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `clients`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
