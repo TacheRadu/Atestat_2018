@@ -3,10 +3,10 @@ var express = require('express');
 var connection = mysql.createConnection({
     host     : 'localhost',
     user : "root",
-    port : 3306, 
+    port : 3306,
     database : 'orcus'
   });
-   
+
 connection.connect(function(err){
     if(err) throw err;
     console.log("Connected!");
@@ -16,7 +16,7 @@ var app = express();
 app.use(express.json());
 
 app.get('/login', function (req, res) {
-    
+
     //res.send(req.query.name);
     connection.query("SELECT * FROM users WHERE name = ? AND password = ?;", [req.query.name, req.query.password] , function(err, results){
         if(err) throw err;
@@ -39,12 +39,15 @@ app.get('/tables', function(req, res) {
         for(var i in dat){
             tables.push(dat[i]["Tables_in_" + connection.config.database]);
         }
-        res.send(tables); 
+        res.send(tables);
     })
 });
 
 app.get('/gettable', function(req, res){
-    connection.query("SELECT * FROM " + req.query.table, function(err, results){
+    connection.query("SELECT * FROM " + "`" +
+connection.config.database + "`.`" + req.query.table
++ "`",
+function(err, results){
         if(err) throw err;
         res.send(results);
     })
@@ -115,7 +118,7 @@ app.post('/change', function(req, res){
     }
 
 });
- 
+
 app.post('/delete', function(req, res){
     var cmd = "DELETE FROM " + req.query.table + " WHERE id IN (" + req.body[0].id;
     for(var i = 1; i < req.body.length; i++){
